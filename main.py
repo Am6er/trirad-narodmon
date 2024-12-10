@@ -29,7 +29,7 @@ class Data:
 
     def get_last_intensity(self) -> float:
         last_counts = self.get_last_counts()
-        return 3600.0 * last_counts / sleeptime / sensitivty - selfbg
+        return (3600.0 * last_counts / sleeptime / sensitivty - selfbg) / 100.0
 
     def get_last_counts(self) -> float:
         if len(self.counts_list) > 1:
@@ -67,7 +67,7 @@ while True:
                 try:
                     response = requests.post(url='https://narodmon.ru/post.php', data=post_data, headers=post_headers)
                     print(
-                        f"{datetime.datetime.now()} Post data to narodmon AVG Intesity: {DATA.get_last_intensity()} \u03BCR/h, Counts: {DATA.get_last_counts()}, Result: {response}")
+                        f"{datetime.datetime.now()} Post data to narodmon AVG Intesity: {DATA.get_last_intensity()} \u03BCSv/h, Counts: {DATA.get_last_counts()}, Result: {response}")
                 except Exception as e:
                     print(f"{datetime.datetime.now()} Error while sending data to narodmon. {e.__str__()}")
         except serial.SerialException as e:
