@@ -46,6 +46,7 @@ while True:
         ser = serial.Serial(port, baudrate, bytesize, parity, stopbits)
     except serial.SerialException as e:
         print("Error open port:", e)
+        DATA = Data()
     else:
         try:
             ser.write(b"#nuc workset\r")
@@ -57,6 +58,7 @@ while True:
                     'ID': 'Trirad-radiascope1-437-00003',
                     'NAME': 'Trirad-radiascope1',
                     'R_DoseRate': DATA.get_last_intensity(),
+                    'R_Counts': DATA.get_last_counts(),
                 }
 
                 post_headers = {
