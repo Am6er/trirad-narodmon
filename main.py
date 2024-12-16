@@ -37,6 +37,10 @@ class Data:
         else:
             return -1
 
+    def clear(self):
+        self.counts_list.clear()
+
+
 
 DATA = Data()
 
@@ -46,7 +50,7 @@ while True:
         ser = serial.Serial(port, baudrate, bytesize, parity, stopbits)
     except serial.SerialException as e:
         print("Error open port:", e)
-        DATA = Data()
+        DATA.clear()
     else:
         try:
             ser.write(b"#nuc workset\r")
